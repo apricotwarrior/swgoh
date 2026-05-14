@@ -1,9 +1,328 @@
 <!doctype html>
 <html>
   <head>
-    <title>This is the title of the webpage!</title>
+    <title>SWGOH Uploads</title>
+
+    <style>
+  :root {
+    --bg: #050814;
+    --bg2: #0c1024;
+    --accent-blue: #55d4ff;
+    --accent-red: #ff4b5c;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: radial-gradient(circle at top, #1c295b 0, #050814 55%, #02030a 100%);
+    color: #f8f9ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .scene {
+    position: relative;
+    width: min(960px, 100vw);
+    height: min(540px, 70vh);
+    background: radial-gradient(circle at top, #1b264a 0, #050814 60%);
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow:
+      0 24px 80px rgba(0, 0, 0, 0.9),
+      0 0 40px rgba(18, 20, 40, 0.8);
+  }
+
+  .stars {
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,0.8) 0, transparent 50%),
+      radial-gradient(1px 1px at 70% 10%, rgba(255,255,255,0.7) 0, transparent 50%),
+      radial-gradient(1px 1px at 40% 40%, rgba(255,255,255,0.6) 0, transparent 50%),
+      radial-gradient(1px 1px at 90% 50%, rgba(255,255,255,0.7) 0, transparent 50%),
+      radial-gradient(1px 1px at 20% 80%, rgba(255,255,255,0.5) 0, transparent 50%);
+    opacity: 0.9;
+    mix-blend-mode: screen;
+    pointer-events: none;
+  }
+
+  .floor {
+    position: absolute;
+    left: -10%;
+    right: -10%;
+    bottom: -40%;
+    height: 80%;
+    background:
+      radial-gradient(circle at 50% 0, rgba(120,130,255,0.25) 0, transparent 55%),
+      linear-gradient(to bottom, rgba(12,16,40,0.9), #03050f);
+    transform: perspective(700px) rotateX(65deg);
+    transform-origin: top;
+    box-shadow: 0 -20px 60px rgba(0,0,0,0.9) inset;
+  }
+
+  .clash-glow {
+    position: absolute;
+    top: 38%;
+    left: 50%;
+    width: 120px;
+    height: 120px;
+    transform: translate(-50%, -50%);
+    background:
+      radial-gradient(circle, rgba(255,255,255,0.9) 0, rgba(255,255,255,0.5) 20%, transparent 60%);
+    mix-blend-mode: screen;
+    opacity: 0.9;
+    filter: blur(2px);
+    animation: pulse 1.2s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.7; }
+    50%      { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
+  }
+
+  .character {
+    position: absolute;
+    bottom: 22%;
+    width: 130px;
+    height: 220px;
+  }
+
+  .obiwan {
+    left: 18%;
+    transform-origin: bottom center;
+    transform: rotateY(12deg);
+  }
+
+  .vader {
+    right: 18%;
+    transform-origin: bottom center;
+    transform: rotateY(-12deg);
+  }
+
+  /* Obi-Wan */
+  .obiwan .robe {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 90px;
+    height: 150px;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #f7e1b0 0, #d9a772 40%, #8b5f3f 100%);
+    clip-path: polygon(15% 0, 85% 0, 100% 100%, 0 100%);
+    box-shadow: 0 0 20px rgba(255, 223, 170, 0.4);
+  }
+
+  .obiwan .head {
+    position: absolute;
+    bottom: 142px;
+    left: 50%;
+    width: 42px;
+    height: 42px;
+    transform: translateX(-50%);
+    background: radial-gradient(circle at 30% 30%, #f8e0c0 0, #e5c095 55%, #b57b55 100%);
+    border-radius: 50%;
+    box-shadow: 0 0 14px rgba(255, 209, 154, 0.7);
+  }
+
+  .obiwan .arm-right {
+    position: absolute;
+    bottom: 120px;
+    left: 64%;
+    width: 70px;
+    height: 70px;
+    transform-origin: left bottom;
+    transform: rotate(-40deg);
+  }
+
+  /* Vader */
+  .vader .cape {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 100px;
+    height: 180px;
+    transform: translateX(-50%);
+    background: radial-gradient(circle at 10% 0, #444 0, #111 35%, #000 90%);
+    clip-path: polygon(10% 0, 90% 0, 100% 100%, 0 100%);
+    box-shadow: 0 0 24px rgba(0,0,0,0.9);
+  }
+
+  .vader .helmet {
+    position: absolute;
+    bottom: 155px;
+    left: 50%;
+    width: 60px;
+    height: 55px;
+    transform: translateX(-50%);
+    background: radial-gradient(circle at 50% 10%, #666 0, #222 40%, #000 100%);
+    border-radius: 60% 60% 45% 45%;
+    box-shadow:
+      0 0 22px rgba(0,0,0,0.9),
+      0 0 12px rgba(180,180,180,0.25);
+  }
+
+  .vader .chest-panel {
+    position: absolute;
+    bottom: 120px;
+    left: 50%;
+    width: 36px;
+    height: 42px;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #222, #151515);
+    border-radius: 6px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.9);
+  }
+
+  .vader .arm-left {
+    position: absolute;
+    bottom: 118px;
+    right: 64%;
+    width: 70px;
+    height: 70px;
+    transform-origin: right bottom;
+    transform: rotate(40deg);
+  }
+
+  /* Lightsabers */
+  .saber {
+    position: absolute;
+    width: 8px;
+    height: 130px;
+    transform-origin: bottom center;
+    transform: rotate(-30deg) translateY(-10px);
+  }
+
+  .vader .saber {
+    transform: rotate(30deg) translateY(-10px);
+  }
+
+  .saber .hilt {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 12px;
+    height: 24px;
+    transform: translateX(-50%);
+    background: linear-gradient(180deg, #d0d0d0, #555, #222);
+    border-radius: 3px;
+    box-shadow: 0 0 6px rgba(0,0,0,0.8);
+  }
+
+  .saber .blade {
+    position: absolute;
+    bottom: 22px;
+    left: 50%;
+    width: 5px;
+    height: 110px;
+    transform: translateX(-50%);
+    border-radius: 999px;
+    box-shadow:
+      0 0 18px currentColor,
+      0 0 36px currentColor;
+  }
+
+  .saber-blue .blade {
+    background: linear-gradient(to top, #b8ffff 0, #55d4ff 30%, #e7fdff 100%);
+    color: var(--accent-blue);
+  }
+
+  .saber-red .blade {
+    background: linear-gradient(to top, #ffc1c1 0, #ff4b5c 30%, #ffe0e0 100%);
+    color: var(--accent-red);
+  }
+
+  /* UI text */
+  .ui {
+    position: absolute;
+    left: 50%;
+    bottom: 10%;
+    transform: translateX(-50%);
+    text-align: center;
+    padding: 12px 18px;
+    background: linear-gradient(90deg, rgba(10,12,40,0.9), rgba(30,40,90,0.7));
+    border-radius: 999px;
+    box-shadow:
+      0 14px 40px rgba(0,0,0,0.9),
+      0 0 16px rgba(120,130,255,0.4);
+    backdrop-filter: blur(12px);
+  }
+
+  .ui h1 {
+    font-size: 22px;
+    margin: 0;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .ui p {
+    margin: 4px 0 0;
+    font-size: 12px;
+    opacity: 0.85;
+  }
+
+  @media (max-width: 700px) {
+    .scene {
+      height: 420px;
+    }
+    .character {
+      width: 100px;
+      height: 190px;
+    }
+    .obiwan { left: 12%; }
+    .vader { right: 12%; }
+    .ui {
+      width: 90%;
+      border-radius: 12px;
+    }
+  }
+</style>
+
   </head>
-  <body>
-    <p>This is an example paragraph. Anything in the <strong>body</strong> tag will appear on the page, just like this <strong>p</strong> tag and its contents.</p>
-  </body>
+<body>
+  <div class="scene">
+    <div class="stars"></div>
+    <div class="floor"></div>
+
+    <!-- Glow between sabers -->
+    <div class="clash-glow"></div>
+
+    <!-- Character: Obi-Wan (left) -->
+    <div class="character obiwan">
+      <div class="robe"></div>
+      <div class="head"></div>
+      <div class="arm-right">
+        <div class="saber saber-blue">
+          <div class="hilt"></div>
+          <div class="blade"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Character: Vader (right) -->
+    <div class="character vader">
+      <div class="cape"></div>
+      <div class="helmet"></div>
+      <div class="arm-left">
+        <div class="saber saber-red">
+          <div class="hilt"></div>
+          <div class="blade"></div>
+        </div>
+      </div>
+      <div class="chest-panel"></div>
+    </div>
+
+    <!-- Title / subtitle -->
+    <div class="ui">
+      <h1>Obi-Wan vs. Vader</h1>
+      <p>“The circle is now complete.” A stylised duel rendered with pure HTML &amp; CSS.</p>
+    </div>
+  </div>
+</body>
 </html>
